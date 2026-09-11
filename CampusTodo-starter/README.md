@@ -65,3 +65,13 @@ git push origin v0.1.0
 - 作者不能批准自己的 Pull Request；评审意见处理完毕且 CI 通过后再合并。
 - 不提交 `.idea/`、`target/`、访问令牌、账号密码或个人隐私数据。
 - 禁止使用 `git push --force` 修改共享的 `main` 分支。
+
+## 7. 协作流程
+
+1. 每项任务先建立 Issue，并明确负责人和验收标准。
+2. 开发者从最新 main 创建功能分支。
+3. 每个功能分支只解决一个 Issue。
+4. 推送分支后创建 Pull Request，并使用 `Closes #编号` 关联 Issue。
+5. Pull Request 必须通过 GitHub Actions 自动测试。
+6. 作者根据评审意见修改，取得至少一个 Approve 后才能合并。
+7. 合并后同步 main，并删除已经完成的功能分支。

@@ -1,0 +1,11 @@
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Maven build output
+target/
+
+# OS files
+.DS_Store
+Thumbs.db

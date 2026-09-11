@@ -8,9 +8,14 @@ import java.util.Objects;
 public class Task {
     private final long id;
     private final String title;
+    private final Priority priority;
     private boolean completed;
 
     public Task(long id, String title) {
+        this(id, title, Priority.MEDIUM);
+    }
+
+    public Task(long id, String title, Priority priority) {
         if (id <= 0) {
             throw new IllegalArgumentException("任务编号必须为正数");
         }
@@ -19,6 +24,8 @@ public class Task {
         }
         this.id = id;
         this.title = title.trim();
+        // 未显式指定优先级时默认为 MEDIUM
+        this.priority = priority == null ? Priority.MEDIUM : priority;
     }
 
     public long getId() {
@@ -27,6 +34,10 @@ public class Task {
 
     public String getTitle() {
         return title;
+    }
+
+    public Priority getPriority() {
+        return priority;
     }
 
     public boolean isCompleted() {

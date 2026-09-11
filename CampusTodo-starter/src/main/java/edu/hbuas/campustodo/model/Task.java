@@ -1,103 +1,66 @@
 package edu.hbuas.campustodo.model;
 
-import java.util.Date;
+import java.util.Objects;
 
 /**
- * 任务实体类
+ * 校园待办任务。
  */
 public class Task {
-    private Long id;
-    private String title;
-    private String content;
-    private Date createTime;
-    private Date deadline;
-    private Boolean finished;
-    // 新增优先级字段
-    private Priority priority;
+    private final long id;
+    private final String title;
+    private final Priority priority;
+    private boolean completed;
 
-    // 无参构造
-    public Task() {
+    public Task(long id, String title) {
+        this(id, title, Priority.MEDIUM);
     }
 
-    // 全参构造（包含priority）
-    public Task(Long id, String title, String content, Date createTime, Date deadline, Boolean finished, Priority priority) {
+    public Task(long id, String title, Priority priority) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("任务编号必须为正数");
+        }
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("任务标题不能为空");
+        }
         this.id = id;
-        this.title = title;
-        this.content = content;
-        this.createTime = createTime;
-        this.deadline = deadline;
-        this.finished = finished;
-        this.priority = priority;
+        this.title = title.trim();
+        // 未显式指定优先级时默认为 MEDIUM
+        this.priority = priority == null ? Priority.MEDIUM : priority;
     }
 
-    // getter & setter
-    public Long getId() {
+    public long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
-    }
-
-    public Boolean getFinished() {
-        return finished;
-    }
-
-    public void setFinished(Boolean finished) {
-        this.finished = finished;
-    }
-
     public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(Priority priority) {
-        this.priority = priority;
+    public boolean isCompleted() {
+        return completed;
     }
 
-    // toString，包含priority
+    public void complete() {
+        completed = true;
+    }
+
     @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", createTime=" + createTime +
-                ", deadline=" + deadline +
-                ", finished=" + finished +
-                ", priority=" + priority +
-                '}';
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Task task)) {
+            return false;
+        }
+        return id == task.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

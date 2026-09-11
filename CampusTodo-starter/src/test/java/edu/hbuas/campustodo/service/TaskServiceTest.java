@@ -60,7 +60,7 @@ class TaskServiceTest {
 
         assertThrows(IllegalStateException.class,
                 () -> service.completeTask(1L));
-
+    }
 
     @Test
     void shouldAssignMediumPriorityByDefault() {

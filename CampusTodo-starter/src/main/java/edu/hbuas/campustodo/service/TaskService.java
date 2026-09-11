@@ -42,6 +42,7 @@ public void completeTask(long id) {
         throw new IllegalStateException("任务已完成，不能重复完成");
     }
     task.complete();
+}
     /**
      * 按优先级筛选任务；没有匹配任务时返回空列表。
      */
@@ -54,5 +55,5 @@ public void completeTask(long id) {
                 .toList();
     }
 
-}
+
 }

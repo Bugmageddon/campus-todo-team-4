@@ -35,6 +35,34 @@ class TaskServiceTest {
     }
 
     @Test
+    void shouldCompleteTask() {
+        TaskService service = new TaskService();
+        service.addTask("完成需求评审");
+
+        service.completeTask(1L);
+
+        assertTrue(service.listAll().get(0).isCompleted());
+    }
+
+    @Test
+    void shouldRejectUnknownTaskId() {
+        TaskService service = new TaskService();
+
+        assertThrows(IllegalArgumentException.class,
+                () -> service.completeTask(999L));
+    }
+
+    @Test
+    void shouldRejectDuplicateCompletion() {
+        TaskService service = new TaskService();
+        service.addTask("完成需求评审");
+        service.completeTask(1L);
+
+        assertThrows(IllegalStateException.class,
+                () -> service.completeTask(1L));
+    }
+
+    @Test
     void shouldAssignMediumPriorityByDefault() {
         TaskService service = new TaskService();
 
@@ -71,5 +99,6 @@ class TaskServiceTest {
         assertEquals(1, lowTasks.size());
         assertEquals("低优先级任务", lowTasks.get(0).getTitle());
         assertEquals(3, service.listAll().size());
+
     }
 }

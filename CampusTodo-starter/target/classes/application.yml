@@ -1,0 +1,14 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/campus_todo?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: XSH12345667
+
+# MyBatis配置（重点！让框架找到mapper.xml文件）
+mybatis:
+  # 扫描resources/mapper下所有xml映射文件
+  mapper-locations: classpath:mapper/*.xml
+  # 实体类别名包，写model包路径
+  type-aliases-package: edu.hbuas.campustodo.model
